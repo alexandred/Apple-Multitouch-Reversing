@@ -1,0 +1,297 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AC510CEC1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC510CEA1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.cpp */; };
+		AC510CED1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC510CEB1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.hpp */; };
+		AC510CF01F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC510CEE1F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.cpp */; };
+		AC510CF11F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC510CEF1F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.hpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AC510CD91F3F39E100C28962 /* Apple Multitouch Reversing.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Apple Multitouch Reversing.kext"; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC510CEA1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppleMultitouchTrackpadHIDEventDriver.cpp; sourceTree = "<group>"; };
+		AC510CEB1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AppleMultitouchTrackpadHIDEventDriver.hpp; sourceTree = "<group>"; };
+		AC510CEE1F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppleMultitouchInputHIDEventDriver.cpp; sourceTree = "<group>"; };
+		AC510CEF1F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AppleMultitouchInputHIDEventDriver.hpp; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AC510CD51F3F39E100C28962 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AC510CCF1F3F39E100C28962 = {
+			isa = PBXGroup;
+			children = (
+				AC510CDB1F3F39E100C28962 /* Apple Multitouch Reversing */,
+				AC510CDA1F3F39E100C28962 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AC510CDA1F3F39E100C28962 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AC510CD91F3F39E100C28962 /* Apple Multitouch Reversing.kext */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AC510CDB1F3F39E100C28962 /* Apple Multitouch Reversing */ = {
+			isa = PBXGroup;
+			children = (
+				AC9074A01F3F3B2F008CF2A6 /* AppleTopCaseHIDEventDriver */,
+			);
+			path = "Apple Multitouch Reversing";
+			sourceTree = "<group>";
+		};
+		AC9074A01F3F3B2F008CF2A6 /* AppleTopCaseHIDEventDriver */ = {
+			isa = PBXGroup;
+			children = (
+				AC510CEA1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.cpp */,
+				AC510CEB1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.hpp */,
+				AC510CEE1F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.cpp */,
+				AC510CEF1F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.hpp */,
+			);
+			name = AppleTopCaseHIDEventDriver;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		AC510CD61F3F39E100C28962 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC510CED1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.hpp in Headers */,
+				AC510CF11F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.hpp in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		AC510CD81F3F39E100C28962 /* Apple Multitouch Reversing */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC510CE31F3F39E100C28962 /* Build configuration list for PBXNativeTarget "Apple Multitouch Reversing" */;
+			buildPhases = (
+				AC510CD41F3F39E100C28962 /* Sources */,
+				AC510CD51F3F39E100C28962 /* Frameworks */,
+				AC510CD61F3F39E100C28962 /* Headers */,
+				AC510CD71F3F39E100C28962 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Apple Multitouch Reversing";
+			productName = "Apple Multitouch Reversing";
+			productReference = AC510CD91F3F39E100C28962 /* Apple Multitouch Reversing.kext */;
+			productType = "com.apple.product-type.kernel-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AC510CD01F3F39E100C28962 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "Alexandre Daoud";
+				TargetAttributes = {
+					AC510CD81F3F39E100C28962 = {
+						CreatedOnToolsVersion = 8.0;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = AC510CD31F3F39E100C28962 /* Build configuration list for PBXProject "Apple Multitouch Reversing" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = AC510CCF1F3F39E100C28962;
+			productRefGroup = AC510CDA1F3F39E100C28962 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AC510CD81F3F39E100C28962 /* Apple Multitouch Reversing */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AC510CD71F3F39E100C28962 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AC510CD41F3F39E100C28962 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC510CF01F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.cpp in Sources */,
+				AC510CEC1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AC510CE11F3F39E100C28962 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		AC510CE21F3F39E100C28962 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		AC510CE41F3F39E100C28962 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.0.0d1;
+				INFOPLIST_FILE = "Apple Multitouch Reversing/Info.plist";
+				MODULE_NAME = com.alexandred.Apple_Multitouch_Reversing;
+				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alexandred.Apple-Multitouch-Reversing";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Debug;
+		};
+		AC510CE51F3F39E100C28962 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.0.0d1;
+				INFOPLIST_FILE = "Apple Multitouch Reversing/Info.plist";
+				MODULE_NAME = com.alexandred.Apple_Multitouch_Reversing;
+				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.alexandred.Apple-Multitouch-Reversing";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AC510CD31F3F39E100C28962 /* Build configuration list for PBXProject "Apple Multitouch Reversing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC510CE11F3F39E100C28962 /* Debug */,
+				AC510CE21F3F39E100C28962 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC510CE31F3F39E100C28962 /* Build configuration list for PBXNativeTarget "Apple Multitouch Reversing" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC510CE41F3F39E100C28962 /* Debug */,
+				AC510CE51F3F39E100C28962 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AC510CD01F3F39E100C28962 /* Project object */;
+}
