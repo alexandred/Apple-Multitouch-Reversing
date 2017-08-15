@@ -216,7 +216,7 @@ int AppleMultitouchInputHIDEventDriver::enableMultitouchEventsGated(bool enabled
             }
              */
             ret = super::enabledMultitouchEvents(*_inputReportBuffer->getBytesNoCopy() & 0xff);
-            if () {
+            if (ret) {
                 IOLog("[HID] [%s] [Error] %s::%s Failed to set device leash state. Result = 0x%08x\n", "ATC", "AppleMultitouchInputHIDEventDriver", "enableMultitouchEventsGated", ret);
             }
             if (*_inputReportBuffer->getBytesNoCopy()) {
