@@ -67,11 +67,11 @@ void AppleMultitouchInputHIDEventDriver::free() {
     }
 
     if (_mtPrefsLock) {
-        IORecursiveLockFree();
+        IORecursiveLockFree(_mtPrefsLock);
         _mtPrefsLock = 0x0;
     }
 
-    if (_mtPreferences {
+    if (_mtPreferences) {
         _mtPreferences->release();
         _mtPreferences = 0x0;
     }
@@ -80,8 +80,7 @@ void AppleMultitouchInputHIDEventDriver::free() {
         _inputReportBuffer->release();
         _inputReportBuffer = 0x0;
     }
-        rax = super::free();
-    return rax;
+    super::free();
 }
 
 
@@ -91,44 +90,149 @@ bool AppleMultitouchInputHIDEventDriver::start(IOService* provider) {
     int ret = getMultitouchReport(0x0, &(0x0), &(0x1), 0x3);
 
     if (ret) {
-        IOLog("[HID] ?? [Error] %s::%s Failed to get device initialized state. Result = 0x%08x\n", "ATC", "AppleMultitouchInputHIDEventDriver", "start", ret);
+        IOLog("[HID] [%s] [Error] %s::%s Failed to get device initialized state. Result = 0x%08x\n", "ATC", "AppleMultitouchInputHIDEventDriver", "start", ret);
     } else if (0 != 0) {
-            (*(*rbx + 0xb40))(rbx);
+            // (*(*rbx + 0xb40))(rbx); // not defined it seems
     }
     
     _notifier = _registerPrioritySleepWakeInterest(OSMemberFunctionCast(IOServiceInterestHandler, this, AppleMultitouchInputHIDEventDriver::systemPowerChangeHandler), this, 0x0);
 
-    if (!notifier)
-        return 0x1;
-
-    IOLog("[HID] ?? [Error] AppleMultitouchInputHIDEventDriver::start registerPrioritySleepWakeInterest failed\n");
-    
-    (*(*rbx + 0x5c8))(rbx, r14);
-    rax = 0x0;
-    return rax;
+    if (!_notifier) {
+        detach(provider); // or maybe stop
+        IOLog("[HID] ?? [Error] AppleMultitouchInputHIDEventDriver::start registerPrioritySleepWakeInterest failed\n");
+        return false;
+    }
 
     return true;
 }
 
 void AppleMultitouchInputHIDEventDriver::stop(IOService* provider) {
-    r14 = rsi;
-    rbx = arg0;
-    rdi = *(rbx + 0x158);
-    if (rdi != 0x0) {
-        (*(*rdi + 0x118))();
-        *(rbx + 0x158) = 0x0;
+    if (_notifier) {
+        _notifier->remove(); // or disable() but less likely
+        _notifier = 0x0;
     }
-    rax = (*0x1c3b8)(rbx, r14);
+    super::stop(provider);
+}
+
+int AppleMultitouchInputHIDEventDriver::setProperties(OSObject* properties) {
+    int ret;
+    bool user_preferences_set;
+
+    OSDictionary* dictionary = OSDynamicCast(OSDictionary, properties);
+    
+    OSBoolean* user_preferences_bool;
+    OSNumber* user_preferences_num;
+
+    if (dictionary) {
+        user_preferences_bool = OSDynamicCast(OSBoolean, dictionary->getObject("UserPreferences"));
+        if (user_preferences_bool) {
+            user_preferences_set = (user_preferences_bool == kOSBooleanTrue) ? true : false;
+        }
+        else {
+            user_preferences_set = false;
+        }
+                   
+        user_preferences_num = OSDynamicCast(OSNumber, dictionary->getObject("UserPreferences"));
+        if (user_preferences_num) {
+            user_preferences_set = (user_preferences_num->unsigned8BitValue() == 1) ? true : false;
+        }
+        if (!user_preferences_set) {
+            ret = super::setProperties(properties);
+        } else {
+            IOWorkLoop* work_loop = getWorkLoop();
+            if (work_loop) {
+                ret = work_loop->runAction(OSMemberFunctionCast(IOWorkLoop::Action, this, &AppleMultitouchInputHIDEventDriver::setMultitouchPreferences), this, dictionary);
+            }
+            ret = 0;
+        }
+    }
+    else {
+        return super::setProperties(properties);
+    }
+    return ret;
+}
+                                    
+int AppleMultitouchInputHIDEventDriver::message(unsigned int arg0, void * arg1, void * arg2) {
+    return 0x0;
+}
+
+IOReturn AppleMultitouchInputHIDEventDriver::multitouchDeviceDidStart() {
+    AppleMultitouchDevice* multitouch_device = getMultitouchDevice();
+    IOReturn ret;
+    ret = kIOReturnNoDevice;
+    if (multitouch_device) {
+        IORecursiveLockLock(_mtPrefsLock);
+        multitouch_device->setPreferences(_mtPreferences);
+        _mtPreferences->flushCollection(); // not 100% sure, need to see vftables for OSDictionary
+        _IORecursiveLockUnlock(*(rbx + 0x150));
+        rax = 0x0;
+    }
     return rax;
 }
 
+IOReturn AppleMultitouchInputHIDEventDriver::setMultitouchPreferences(OSDictionary* properties) {
+    IOReturn ret = kIOReturnOffline;
+    if (!IOService::isInactive(this)) {
+        ret = kIOReturnBadArgument;
+        if (properties) {
+            IORecursiveLockLock(_mtPrefsLock);
+            AppleMultitouchDevice* multitouch_device = getMultitouchDevice();
+            if (multitouch_device)
+                multitouch_device->setPreferences(properties);
+            else
+                _mtPreferences->removeObject(properties);
+            IORecursiveLockUnlock(_mtPrefsLock);
+            ret = kIOReturnSuccess;
+        }
+    }
+    return rax;
+}
+
+int AppleMultitouchInputHIDEventDriver::enableMultitouchEvents(bool enabled) {
+    int ret;
+    IOWorkLoop* work_loop = getWorkLoop();
+    if (work_loop)
+        ret = work_loop->runAction(OSMemberFunctionCast(IOWorkLoop::Action, this, &AppleMultitouchInputHIDEventDriver::enableMultitouchEventsGated), enabled);
+    else
+        ret = kIOReturnNotReady;
+    }
+    return ret;
+}
+
+int AppleMultitouchInputHIDEventDriver::enableMultitouchEventsGated(bool enabled) {
+    r15 = rsi;
+    rbx = arg0;
+    IOReturn ret = kIOReturnNotReady;
+    if (!IOService::isInactive(this)) {
+        ret = kIOReturnSuccess;
+        if (*_inputReportBuffer->getBytesNoCopy() & 0xff != (enabled & 0xff)) {
+            *_inputReportBuffer->getBytesNoCopy() = enabled;
+            /* not important, just some internal logging in `AppleMultitouchDevice' context
+             AppleMultitouchDevice* multitouch_device;
+            if (multitouch_device) {
+                rsi = (*(*rbx + 0xb08))(rbx);
+                //(*(r8 + 0x8f0))(rsi, rbx, "AppleMultitouchInputHIDEventDriver::enableMultitouchEvents(%s)");
+                IOLog("AppleMultitouchInputHIDEventDriver::enableMultitouchEvents(0x%x)\n", enabled);
+            }
+             */
+            ret = super::enabledMultitouchEvents(*_inputReportBuffer->getBytesNoCopy() & 0xff);
+            if () {
+                IOLog("[HID] [%s] [Error] %s::%s Failed to set device leash state. Result = 0x%08x\n", "ATC", "AppleMultitouchInputHIDEventDriver", "enableMultitouchEventsGated", ret);
+            }
+            if (*_inputReportBuffer->getBytesNoCopy()) {
+                scheduleUnleash(); // offset 0xc10 doesnt match but its the only one that makes sense to me...
+            }
+        }
+    }
+    return ret;
+}
+
 int AppleMultitouchInputHIDEventDriver::systemPowerChangeHandler(void * target, void * refCon, UInt32 messageType, IOService * provider, void * messageArgument, vm_size_t argSize) {
-    r8 = arg4;
-    rdi = arg0;
+    // 0xe0000340 seems to be an IOMessage that is library defined. Likely something to do with the driver shutting down
     if (((messageType == 0xe0000340) && (*(int32_t *)(argSize + 0x8) == 0x2)) && ((*(int32_t *)(argSize + 0x10) & 0x1) == 0x0)) {
-        rax = *(int32_t *)(argSize + 0x14) & 0x1;
-        if (rax != 0x0) {
-            (*(*rdi + 0xc20))();
+        int32_t ret = *(int32_t *)(argSize + 0x14) & 0x1;
+        if (ret) {
+            scheduleUnleash();
         }
     }
     return 0x0;
@@ -151,12 +255,12 @@ int AppleMultitouchInputHIDEventDriver::scheduleUnleash() {
 int AppleMultitouchInputHIDEventDriver::unleashThreadEnter() {
     IOWorkLoop* work_loop = getWorkLoop();
 
-    work_loop->run(OSMemberFunctionCast(IOWorkLoop::Action, this, &AppleMultitouchInputHIDEventDriver::unleashThreadGated), this);
+    work_loop->runAction(OSMemberFunctionCast(IOWorkLoop::Action, this, &AppleMultitouchInputHIDEventDriver::unleashThreadGated), this);
     
     return work_loop->release();
 }
         
-int AppleMultitouchInputHIDEventDriver::unleashThreadGated() {
+int AppleMultitouchInputHIDEventDriver::unleashDeviceGated() {
     if (IOService::isInactive(this))
         return true;
     int ret;

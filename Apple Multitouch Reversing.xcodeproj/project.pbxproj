@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC189C401F431C27000547DB /* AppleMultitouchHIDEventDriverV2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC189C3E1F431C27000547DB /* AppleMultitouchHIDEventDriverV2.cpp */; };
+		AC189C411F431C27000547DB /* AppleMultitouchHIDEventDriverV2.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC189C3F1F431C27000547DB /* AppleMultitouchHIDEventDriverV2.hpp */; };
 		AC510CEC1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC510CEA1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.cpp */; };
 		AC510CED1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.hpp in Headers */ = {isa = PBXBuildFile; fileRef = AC510CEB1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.hpp */; };
 		AC510CF01F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AC510CEE1F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.cpp */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC189C3E1F431C27000547DB /* AppleMultitouchHIDEventDriverV2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppleMultitouchHIDEventDriverV2.cpp; sourceTree = "<group>"; };
+		AC189C3F1F431C27000547DB /* AppleMultitouchHIDEventDriverV2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AppleMultitouchHIDEventDriverV2.hpp; sourceTree = "<group>"; };
 		AC510CD91F3F39E100C28962 /* Apple Multitouch Reversing.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Apple Multitouch Reversing.kext"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC510CEA1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppleMultitouchTrackpadHIDEventDriver.cpp; sourceTree = "<group>"; };
 		AC510CEB1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = AppleMultitouchTrackpadHIDEventDriver.hpp; sourceTree = "<group>"; };
@@ -63,6 +67,8 @@
 				AC510CEB1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.hpp */,
 				AC510CEE1F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.cpp */,
 				AC510CEF1F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.hpp */,
+				AC189C3E1F431C27000547DB /* AppleMultitouchHIDEventDriverV2.cpp */,
+				AC189C3F1F431C27000547DB /* AppleMultitouchHIDEventDriverV2.hpp */,
 			);
 			name = AppleTopCaseHIDEventDriver;
 			sourceTree = "<group>";
@@ -76,6 +82,7 @@
 			files = (
 				AC510CED1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.hpp in Headers */,
 				AC510CF11F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.hpp in Headers */,
+				AC189C411F431C27000547DB /* AppleMultitouchHIDEventDriverV2.hpp in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +156,7 @@
 			files = (
 				AC510CF01F3F3A9B00C28962 /* AppleMultitouchInputHIDEventDriver.cpp in Sources */,
 				AC510CEC1F3F3A5900C28962 /* AppleMultitouchTrackpadHIDEventDriver.cpp in Sources */,
+				AC189C401F431C27000547DB /* AppleMultitouchHIDEventDriverV2.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

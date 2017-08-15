@@ -12,9 +12,10 @@
 #include <IOKit/IOLib.h>
 #include <IOKit/IOKitKeys.h>
 #include <IOKit/IOService.h>
-#include <IOKit/hidevent/IOHIDEventDriver.h>
 #include <kern/thread_call.h>
 #include <IOKit/IOBufferMemoryDescriptor.h>
+
+#include "AppleMultitouchHIDEventDriverV2.hpp"
 
 class AppleMultitouchInputHIDEventDriver : public AppleMultitouchHIDEventDriverV2 {
   OSDeclareDefaultStructors(AppleMultitouchInputHIDEventDriver);
@@ -42,17 +43,29 @@ class AppleMultitouchInputHIDEventDriver : public AppleMultitouchHIDEventDriverV
     bool start(IOService* provider);
     void stop(IOService* provider);
     
+    int setProperties(OSObject* properties);
+    
+    int message(unsigned int arg0, void * arg1, void * arg2)
+    
+    // offset 0xc00
+    int setMultitouchPreferences(OSDictionary* properties);
+    
+    int enableMultitouchEvents(bool enabled);
+    
+    // offset 0xc08
+    int enableMultitouchEventsGated(bool enabled);
+    
     // offset 0xc18
     int systemPowerChangeHandler(void * target, void * refCon, UInt32 messageType, IOService * provider, void * messageArgument, vm_size_t argSize);
     
     //offset 0xc20
-    int scheduleUnleash()
+    int scheduleUnleash();
     
     // offset 0xc28
     int unleashThreadEnter();
     
     // offset 0xc30
-    int unleashThreadGated()
+    int unleashThreadGated();
  protected:
  private:
 };
