@@ -45,7 +45,7 @@ class AppleMultitouchInputHIDEventDriver : public AppleMultitouchHIDEventDriverV
     
     int setProperties(OSObject* properties);
     
-    int message(unsigned int arg0, void * arg1, void * arg2)
+    int message(unsigned int arg0, void * arg1, void * arg2);
     
     // offset 0xc00
     int setMultitouchPreferences(OSDictionary* properties);

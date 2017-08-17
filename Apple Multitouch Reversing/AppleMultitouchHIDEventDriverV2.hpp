@@ -12,7 +12,19 @@
 #include <IOKit/IOLib.h>
 #include <IOKit/IOKitKeys.h>
 #include <IOKit/IOService.h>
-#include <IOKit/hidevent/IOHIDEventDriver.h>
+//#include <IOKit/hidevent/IOHIDEventDriver.h>
+#include <IOKit/hidsystem/IOHIPointing.h>
+
+class IOHIDEventService : public IOService {
+    OSDeclareDefaultStructors(IOHIDEventService);
+    
+public:
+    int setSystemProperties(OSDictionary* properties);
+};
+
+class IOHIDEventDriver : public IOHIDEventService {
+    OSDeclareDefaultStructors(IOHIDEventDriver);
+};
 
 class AppleMultitouchHIDEventDriverV2 : public IOHIDEventDriver {
   OSDeclareDefaultStructors(AppleMultitouchHIDEventDriverV2);

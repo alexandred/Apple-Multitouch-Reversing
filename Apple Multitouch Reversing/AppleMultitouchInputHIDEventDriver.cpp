@@ -137,7 +137,7 @@ int AppleMultitouchInputHIDEventDriver::setProperties(OSObject* properties) {
             user_preferences_set = (user_preferences_num->unsigned8BitValue() == 1) ? true : false;
         }
         if (!user_preferences_set) {
-            ret = super::setProperties(properties);
+            ret = setProperties(properties);
         } else {
             IOWorkLoop* work_loop = getWorkLoop();
             if (work_loop) {
@@ -164,15 +164,15 @@ IOReturn AppleMultitouchInputHIDEventDriver::multitouchDeviceDidStart() {
         IORecursiveLockLock(_mtPrefsLock);
         multitouch_device->setPreferences(_mtPreferences);
         _mtPreferences->flushCollection(); // not 100% sure, need to see vftables for OSDictionary
-        _IORecursiveLockUnlock(*(rbx + 0x150));
-        rax = 0x0;
+        IORecursiveLockUnlock(_mtPrefsLock);
+        ret = 0;
     }
-    return rax;
+    return ret;
 }
 
 IOReturn AppleMultitouchInputHIDEventDriver::setMultitouchPreferences(OSDictionary* properties) {
     IOReturn ret = kIOReturnOffline;
-    if (!IOService::isInactive(this)) {
+    if (!IOService::isInactive()) {
         ret = kIOReturnBadArgument;
         if (properties) {
             IORecursiveLockLock(_mtPrefsLock);
