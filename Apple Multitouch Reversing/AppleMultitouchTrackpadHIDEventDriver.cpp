@@ -204,30 +204,29 @@ int AppleMultitouchTrackpadHIDEventDriver::handleInterruptReportEyP18IOMemoryDes
             if (report_length) {
                 var_38 = rbx; //timestamp
                 var_44 = r14; //reportID
-                r14 = (*(**(r15 + 0x138) + 0x2e0))(*(r15 + 0x138));
-                var_50 = r14;
-                rbx = (*(*r12 + 0x1c8))(r12);
-                var_40 = rbx;
-                (*(*r12 + 0x1e0))(r12, 0x0, r14, rbx, *r12);
-                _memset(&var_30, 0x0, 0x8);
-                if (*(int8_t *)(r15 + 0x188) != 0x0) {
-                    if (*(r15 + 0x178) == 0x0) {
-                        *(r15 + 0x178) = IOService::addMatchingNotification(*_gIOFirstMatchNotification, IOService::serviceMatching("IOHIPointing", 0x0), AppleMultitouchTrackpadHIDEventDriver::CheckOtherMouseEntry(OSObject*, void*, IOService*, IONotifier*), r15, 0x0, 0x0);
+                
+                UInt32* driver_report_data = (int*)_inputReportBuffer->getBytesNoCopy();
+                report->readBytes(0x0, driver_report_data, report_length);
+                
+                UInt32* temp_report;
+                memset(temp_report, 0x0, 0x8);
+                
+                if (usb_mouse_stops_trackpad) {
+                    if (!usb_mouse_first_match_notifier) {
+                        usb_mouse_first_match_notifier = IOService::addMatchingNotification(gIOFirstMatchNotification, IOService::serviceMatching("IOHIPointing", 0x0), OSMemberFunctionCast(IOServiceMatchingNotificationHandler, this, &AppleMultitouchTrackpadHIDEventDriver::CheckOtherMouseEntry), this, 0x0, 0x0);
                     }
-                    if (*(r15 + 0x180) == 0x0) {
-                        *(r15 + 0x180) = IOService::addMatchingNotification(*_gIOTerminatedNotification, IOService::serviceMatching("IOHIPointing", 0x0), AppleMultitouchTrackpadHIDEventDriver::CheckOtherMouseEntry(OSObject*, void*, IOService*, IONotifier*), r15, 0x0, 0x0);
+                    if (!usb_mouse_terminated_notifier) {
+                        usb_mouse_terminated_notifier = IOService::addMatchingNotification(gIOTerminatedNotification, IOService::serviceMatching("IOHIPointing", 0x0), OSMemberFunctionCast(IOServiceMatchingNotificationHandler, this, &AppleMultitouchTrackpadHIDEventDriver::CheckOtherMouseEntry), this, 0x0, 0x0);
                     }
                 }
-                (*(**(r15 + 0x138) + 0x2c8))(*(r15 + 0x138), var_40);
-                r14 = var_44;
-                if (r13 == 0x2) {
-                    r12 = 0x2;
-                    if (rbx > 0x8) {
-                        if ((*(*r15 + 0xb08))(r15) != 0x0) {
-                            rax = __atc_extractTrackingAndButtonState();
-                            if (rax != 0x0) {
+                _inputReportBuffer->setLength(report_length);
+                if (reportID == 0x2) {
+                    if (report_length > 0x8) {
+                        AppleMultitouchDevice* multitouch_device = getMultitouchDevice();
+                        if (multitouch_device) {
+                            atc_extractTrackingAndButtonState(temp_report, driver_report_data, 0x8);
                                 rcx = var_2F;
-                                if ((*(int8_t *)(r15 + 0x170) & rcx) != 0x0) {
+                                if (trackpad_preferences->button_swap) {
                                     rcx = rcx & 0xfc | 0x2;
                                 }
                                 var_2F = rcx;
@@ -244,7 +243,6 @@ int AppleMultitouchTrackpadHIDEventDriver::handleInterruptReportEyP18IOMemoryDes
                                     rax = r12;
                                 }
                                 *(int8_t *)(r15 + 0x189) = var_2A >> 0x1 & 0x1;
-                            }
                         }
                         else {
                             rax = 0x0;
